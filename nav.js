@@ -3,11 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
   fetch('nav.html')
     .then(response => response.text())
     .then(html => {
-      // Insert nav at the start of body
-      const bodyContent = document.body.innerHTML;
-      document.body.innerHTML = html + bodyContent;
+      const navContainer = document.createElement('div');
+      navContainer.innerHTML = html;
+      const navElement = navContainer.querySelector('nav');
       
-      // Set active link based on current page
+      const placeholder = document.getElementById('nav-placeholder');
+      if (placeholder) {
+        placeholder.replaceWith(navElement);
+      }
+      
       const currentPage = window.location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.nav-links a').forEach(link => {
         if (link.getAttribute('href') === currentPage) {

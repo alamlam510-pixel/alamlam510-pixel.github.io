@@ -11,8 +11,6 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <script src="nav.js"></script>
-
   <!-- Chart.js for data visualizations -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -48,6 +46,7 @@
       top: 0;
       left: 0;
       right: 0;
+      height: 70px;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,154,162,0.18);
@@ -276,6 +275,7 @@
   </style>
 </head>
 <body>
+<div id="nav-placeholder"></div>
 
   <!-- Main Content -->
   <main>
@@ -561,6 +561,6 @@
       }
     });
   </script>
-
+  <script src="nav.js"></script>
 </body>
 </html>
