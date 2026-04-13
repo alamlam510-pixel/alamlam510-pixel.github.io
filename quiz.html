@@ -4,8 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Korean Connect ♡ Quiz</title>
+  
+  <!-- Google Fonts - supports Korean & Traditional Chinese -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="nav.js"></script>
+
   <style>
     :root {
       --bg-soft:      #fffaf5;
@@ -19,22 +26,26 @@
       --glow-mint:     rgba(168, 230, 207, 0.3);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Noto Sans TC', 'Noto Sans KR', system-ui, sans-serif;
       background: linear-gradient(135deg, var(--bg-soft) 0%, #f0fff5 100%);
       color: var(--text-dark);
       line-height: 1.6;
-      min-height: 100vh;
     }
 
+    /* Navigation */
     nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,154,162,0.18);
       z-index: 1000;
@@ -52,7 +63,9 @@
       text-decoration: none;
     }
 
-    .logo span { color: var(--teal); }
+    .logo span {
+      color: var(--teal);
+    }
 
     .nav-links {
       display: flex;
@@ -74,104 +87,124 @@
       transform: translateY(-2px);
     }
 
-    .main-content {
-      padding: 140px 6% 80px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .page-header {
+    /* Hero */
+    header.hero {
+      background: linear-gradient(135deg, var(--primary-red) 20%, var(--primary-pink) 80%);
+      color: white;
       text-align: center;
-      margin-bottom: 50px;
+      padding: 180px 6% 100px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
     }
 
-    .page-header h1 {
-      font-size: 3rem;
-      color: var(--primary-red);
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.4) 0%, transparent 65%);
+      animation: gentleFloat 22s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes gentleFloat {
+      0%   { transform: translate(0,0) rotate(0deg); }
+      100% { transform: translate(140%, 90%) rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 5rem;
+      font-weight: 800;
       margin-bottom: 16px;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
     }
 
-    .page-header p {
-      font-size: 1.2rem;
-      color: #636e72;
-    }
-
-    .quiz-container {
-      background: var(--light);
-      border-radius: 24px;
-      box-shadow: 0 10px 40px var(--glow);
-      padding: 40px;
-      max-width: 600px;
+    .subtitle {
+      font-size: 1.8rem;
+      max-width: 800px;
       margin: 0 auto;
+      opacity: 0.96;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Quiz Section */
+    section {
+      padding: 80px 6%;
+      text-align: center;
+    }
+
+    .quiz-game {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--light);
+      border-radius: 28px;
+      box-shadow: 0 16px 60px var(--glow);
+      padding: 48px;
     }
 
     .progress-container {
-      margin-bottom: 24px;
-    }
-
-    .progress-text {
       display: flex;
       justify-content: space-between;
-      font-size: 1rem;
-      color: #636e72;
-      margin-bottom: 8px;
+      margin-bottom: 24px;
+      font-size: 1.1rem;
+      color: #666;
     }
 
-    .progress-text span { font-weight: 600; }
+    .progress-container span {
+      font-weight: 600;
+      color: var(--primary-pink);
+    }
 
     .progress-bar {
-      height: 10px;
+      height: 12px;
       background: #f0f0f0;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
+      margin-bottom: 32px;
     }
 
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--primary-pink), var(--primary-red));
-      border-radius: 10px;
+      border-radius: 12px;
       transition: width 0.4s ease;
       width: 0%;
     }
 
     .timer {
-      text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
       color: var(--primary-red);
       margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
     }
 
     .timer.warning {
-      color: #e17055;
       animation: pulse 0.5s infinite;
     }
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      50% { transform: scale(1.08); }
     }
 
-    .question-card {
+    .question {
       background: linear-gradient(135deg, var(--glow) 0%, var(--glow-mint) 100%);
       border-radius: 20px;
-      padding: 32px;
-      text-align: center;
-      margin-bottom: 24px;
+      padding: 36px;
+      margin-bottom: 32px;
     }
 
     .question-label {
-      font-size: 1rem;
-      color: #636e72;
+      font-size: 1.1rem;
+      color: #666;
       margin-bottom: 12px;
     }
 
     .question-text {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 600;
     }
 
@@ -186,20 +219,20 @@
     }
 
     .option {
-      padding: 20px;
+      padding: 24px 20px;
       border: 2px solid #e0e0e0;
       border-radius: 16px;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      font-weight: 500;
       background: var(--light);
       cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: center;
+      transition: all 0.25s ease;
     }
 
     .option:hover {
       border-color: var(--primary-pink);
       background: #fff5f5;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .option.correct {
@@ -216,14 +249,15 @@
 
     .option.disabled {
       pointer-events: none;
+      opacity: 0.7;
     }
 
     .feedback {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 500;
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 600;
       display: none;
     }
 
@@ -233,14 +267,13 @@
 
     .btn {
       margin-top: 20px;
-      width: 100%;
-      padding: 18px;
+      padding: 18px 36px;
       border: none;
       border-radius: 16px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .btn-primary {
@@ -249,8 +282,8 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.35);
     }
 
     .btn-secondary {
@@ -259,8 +292,8 @@
     }
 
     .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(42, 157, 143, 0.35);
     }
 
     .result {
@@ -268,7 +301,7 @@
     }
 
     .result-score {
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
       -webkit-background-clip: text;
@@ -276,63 +309,70 @@
     }
 
     .result-message {
-      font-size: 1.3rem;
-      color: #636e72;
-      margin: 16px 0 32px;
+      font-size: 1.6rem;
+      color: #666;
+      margin: 20px 0 40px;
     }
 
-    .hidden { display: none; }
+    footer {
+      padding: 80px 6% 60px;
+      background: linear-gradient(to top, #f0fff5, transparent);
+      text-align: center;
+      color: #555;
+      font-size: 1.15rem;
+    }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .options { grid-template-columns: 1fr; }
-      .page-header h1 { font-size: 2rem; }
+      h1 { font-size: 3rem; }
+      .question-text { font-size: 1.6rem; }
+      .quiz-game { padding: 28px; }
     }
   </style>
 </head>
 <body>
 <div id="nav-placeholder"></div>
 
-  <div class="main-content">
-    <div class="page-header">
-      <h1>Korean Quiz</h1>
-      <p>Test your knowledge of colors and numbers</p>
-    </div>
+  <!-- Hero -->
+  <header class="hero">
+    <h1>Korean Quiz</h1>
+    <p class="subtitle">Test your knowledge of colors, numbers, greetings, and more!</p>
+  </header>
 
-    <div class="quiz-container" id="quiz">
+  <!-- Quiz Game -->
+  <section>
+    <div class="quiz-game" id="quiz">
       <div class="progress-container">
-        <div class="progress-text">
-          <span id="questionNum">Question 1</span>
-          <span id="scoreDisplay">Score: 0</span>
-        </div>
+        <div><span id="questionNum">Question 1</span></div>
+        <div>Score: <span id="scoreDisplay">0</span></div>
       </div>
-
-      <div class="timer">
-        <i class="far fa-clock"></i>
-        <span id="timer">2:00</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
       </div>
-
-      <div class="question-card">
+      <div class="timer" id="timer">2:00</div>
+      <div class="question">
         <div class="question-label">What is the Korean for</div>
-        <div class="question-text">
-          <span id="targetWord">red</span>?
-        </div>
+        <div class="question-text"><span id="targetWord">red</span>?</div>
       </div>
-
       <div class="options" id="options"></div>
-
       <div class="feedback" id="feedback"></div>
       <button class="btn btn-secondary" id="speakBtn" style="display:none">🔊 Hear Pronunciation</button>
       <button class="btn btn-primary" id="nextBtn" style="display:none">Next Question</button>
     </div>
 
-    <div class="quiz-container hidden" id="result">
+    <div class="quiz-game hidden" id="result">
       <div class="result">
         <div class="result-score" id="finalScore">8/10</div>
         <div class="result-message" id="resultMessage">Great job! 🌟</div>
         <button class="btn btn-primary" onclick="restartQuiz()">Play Again</button>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>화이팅! Keep practicing your Korean! ♡</p>
+  </footer>
 
   <script>
     const questions = [
@@ -356,29 +396,20 @@
       { type: 'number', target: 'eight', answer: '여덟' },
       { type: 'number', target: 'nine', answer: '아홉' },
       { type: 'number', target: 'ten', answer: '열' },
-      { type: 'number', target: 'eleven', answer: '열하나' },
-      { type: 'number', target: 'twelve', answer: '열둘' },
-      { type: 'number', target: 'thirteen', answer: '열셋' },
-      { type: 'number', target: 'fourteen', answer: '열넷' },
-      { type: 'number', target: 'fifteen', answer: '열다섯' },
-      { type: 'number', target: 'twenty', answer: '스무' },
       { type: 'greeting', target: 'hello', answer: '안녕하세요' },
       { type: 'greeting', target: 'thank you', answer: '감사합니다' },
       { type: 'greeting', target: 'goodbye', answer: '안녕히 가세요' },
       { type: 'greeting', target: 'please', answer: '부탁합니다' },
-      { type: 'greeting', target: 'sorry', answer: '죄송합니다' },
       { type: 'greeting', target: 'yes', answer: '네' },
       { type: 'greeting', target: 'no', answer: '아니요' },
       { type: 'animal', target: 'dog', answer: '개' },
       { type: 'animal', target: 'cat', answer: '고양이' },
       { type: 'animal', target: 'bird', answer: '새' },
       { type: 'animal', target: 'fish', answer: '물고기' },
-      { type: 'animal', target: 'rabbit', answer: '토끼' },
       { type: 'food', target: 'rice', answer: '밥' },
       { type: 'food', target: 'water', answer: '물' },
       { type: 'food', target: 'bread', answer: '빵' },
       { type: 'food', target: 'apple', answer: '사과' },
-      { type: 'food', target: 'banana', answer: '바나나' },
     ];
 
     const wrongOptions = {
@@ -389,9 +420,9 @@
       '하양': ['빨강', '파랑', '노랑', '초록', '검정', '보라', '주황', '분홍', '회색'],
       '검정': ['빨강', '파랑', '노랑', '초록', '하양', '보라', '주황', '분홍', '회색'],
       '보라': ['빨강', '파랑', '노랑', '초록', '하양', '검정', '주황', '분홍', '회색'],
-      '주황': ['빨강', '파랑', '노랑', '초록', '하양', '검정', '보라', '분홍', '회색'],
-      '분홍': ['빨강', '파랑', '노랑', '초록', '하양', '검정', '보라', '주황', '회색'],
-      '회색': ['빨강', '파랑', '노랑', '초록', '하양', '검정', '보라', '주황', '분홍'],
+      '주황': ['빨강', '파랑', '노랑', '초록', '하양', '보라', '분홍', '회색'],
+      '분홍': ['빨강', '파랑', '노랑', '초록', '하양', '보라', '주황', '회색'],
+      '회색': ['빨강', '파랑', '노랑', '초록', '하양', '보라', '주황', '분홍'],
       '하나': ['둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열'],
       '둘': ['하나', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열'],
       '셋': ['하나', '둘', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열'],
@@ -402,29 +433,23 @@
       '여덟': ['하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '아홉', '열'],
       '아홉': ['하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '열'],
       '열': ['하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉'],
-      '열하나': ['열', '열둘', '열셋', '스무', '하나', '둘', '셋', '넷', '다섯'],
-      '열둘': ['열', '열하나', '열셋', '열넷', '하나', '둘', '셋', '넷', '다섯'],
-      '스무': ['열', '열하나', '열둘', '서른', '하나', '둘', '셋', '넷', '다섯'],
-      '안녕하세요': ['안녕', '안녕히 가세요', '감사합니다', '제발', '다음에 봐요', '죄송합니다', '부탁합니다', '아니요', '네'],
-      '감사합니다': ['안녕하세요', '부탁합니다', '죄송합니다', '고마워요', '천만에요', '안녕', '네', '아니요', '다시 봐요'],
-      '안녕히 가세요': ['안녕하세요', '안녕', '다시 봐요', '다음에 봐요', '감사합니다', '부탁합니다', '죄송합니다', '네', '아니요'],
-      '부탁합니다': ['감사합니다', '부탁해요', '제발', '도와주세요', '물어봅니다', '안녕하세요', '네', '아니요', '안녕'],
-      '죄송합니다': ['미안해요', '실례합니다', '감사합니다', '알겠어요', '조심할게요', '안녕하세요', '네', '아니요', '부탁합니다'],
-      '네': ['아니요', '예', '그래요', '알겠어요', '맞아요', '아니야', '틀렸어', '좋아요', '싫어요'],
-      '아니요': ['네', '예', '아녀', '아닙니다', '틀려요', '그런데', '하지만', '근데', '그래도'],
-      '개': ['고양이', '새', '물고기', '토끼', '곰', '호랑이', '사자', '코끼리', '기린'],
-      '고양이': ['개', '새', '물고기', '토끼', '고래', '곰', '사자', '호랑이', '여우'],
-      '새': ['개', '고양이', '물고기', '토끼', '나비', '잠자리', '벌', '매', '참새'],
-      '물고기': ['개', '고양이', '새', '토끼', '고래', '돌고래', '오징어', '문어', '새우'],
-      '토끼': ['개', '고양이', '새', '물고기', '고양이', '다람쥐', '다람쥐', '쥐', '다람쥐'],
-      '밥': ['빵', '물', '사과', '바나나', '고기', '국', '찜', '구이', '찌개'],
-      '물': ['밥', '빵', '사과', '바나나', '우유', '주스', '차', '커피', '음료'],
-      '빵': ['밥', '물', '사과', '바나나', '케이크', '쿠키', '도넛', '식빵', '크로와상'],
-      '사과': ['밥', '물', '빵', '바나나', '포도', '딸기', '수박', '귤', '복숭아'],
-      '바나나': ['밥', '물', '빵', '사과', '딸기', '망고', '파인애플', '블루베리', '레몬'],
+      '안녕하세요': ['안녕', '안녕히 가세요', '감사합니다', '부탁합니다', '죄송합니다'],
+      '감사합니다': ['안녕하세요', '부탁합니다', '죄송합니다', '고마워요', '천만에요'],
+      '안녕히 가세요': ['안녕하세요', '안녕', '다시 봐요', '감사합니다', '부탁합니다'],
+      '부탁합니다': ['감사합니다', '부탁해요', '제발', '도와주세요', '안녕하세요'],
+      '네': ['아니요', '예', '그래요', '알겠어요', '맞아요'],
+      '아니요': ['네', '예', '틀려요', '그런데', '근데'],
+      '개': ['고양이', '새', '물고기', '토끼', '곰'],
+      '고양이': ['개', '새', '물고기', '토끼', '고래'],
+      '새': ['개', '고양이', '물고기', '토끼', '나비'],
+      '물고기': ['개', '고양이', '새', '토끼', '고래'],
+      '밥': ['빵', '물', '사과', '바나나', '고기'],
+      '물': ['밥', '빵', '사과', '바나나', '우유'],
+      '빵': ['밥', '물', '사과', '바나나', '케이크'],
+      '사과': ['밥', '물', '빵', '바나나', '포도'],
     };
 
-    const numberMap = { one: '1', two: '2', three: '3', four: '4', five: '5', six: '6', seven: '7', eight: '8', nine: '9', ten: '10', eleven: '11', twelve: '12', thirteen: '13', fourteen: '14', fifteen: '15', twenty: '20' };
+    const numberMap = { one: '1', two: '2', three: '3', four: '4', five: '5', six: '6', seven: '7', eight: '8', nine: '9', ten: '10' };
 
     let currentQuestions = [];
     let currentIndex = 0;
@@ -457,7 +482,6 @@
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ko-KR';
         utterance.rate = 0.9;
-        utterance.pitch = 1;
         window.speechSynthesis.speak(utterance);
       }
     }
@@ -479,7 +503,7 @@
       const q = currentQuestions[currentIndex];
       
       document.getElementById('questionNum').textContent = `Question ${totalAnswered + 1}`;
-      document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+      document.getElementById('scoreDisplay').textContent = score;
       document.getElementById('targetWord').textContent = q.type === 'number' ? numberMap[q.target] : q.target;
       
       const optionsContainer = document.getElementById('options');
@@ -496,6 +520,7 @@
 
       document.getElementById('feedback').className = 'feedback';
       document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('speakBtn').style.display = 'none';
       startTimer();
     }
 
@@ -539,28 +564,11 @@
         feedback.className = 'feedback show wrong';
       }
 
-      document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+      const progressPercent = Math.round((totalAnswered / 20) * 100);
+      document.getElementById('progressFill').style.width = progressPercent + '%';
+      document.getElementById('scoreDisplay').textContent = score;
       document.getElementById('speakBtn').style.display = 'block';
       document.getElementById('speakBtn').onclick = () => speakKorean(correct);
-      document.getElementById('nextBtn').style.display = 'block';
-    }
-
-    function timeOut() {
-      answered = true;
-      totalAnswered++;
-      const q = currentQuestions[currentIndex];
-      
-      const options = document.querySelectorAll('.option');
-      options.forEach(opt => {
-        opt.classList.add('disabled');
-        if (opt.textContent === q.answer) opt.classList.add('correct');
-      });
-
-      const feedback = document.getElementById('feedback');
-      feedback.textContent = `⏰ Time's up! Answer: ${q.answer}`;
-      feedback.className = 'feedback show wrong';
-      document.getElementById('speakBtn').style.display = 'block';
-      document.getElementById('speakBtn').onclick = () => speakKorean(q.answer);
       document.getElementById('nextBtn').style.display = 'block';
     }
 
@@ -584,16 +592,17 @@
       
       const percentage = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
       let msg = '';
-      if (percentage >= 90) msg = 'Perfect! You\'re a Korean master! ★';
-      else if (percentage >= 70) msg = 'Great job! Keep it up! ✨';
-      else if (percentage >= 50) msg = 'Good effort! Practice more! 💪';
-      else msg = 'Keep practicing! You can do it! 🌱';
+      if (percentage >= 90) msg = "Perfect! You're a Korean master! ★";
+      else if (percentage >= 70) msg = "Great job! Keep it up! ✨";
+      else if (percentage >= 50) msg = "Good effort! Practice more! 💪";
+      else msg = "Keep practicing! You can do it! 🌱";
       document.getElementById('resultMessage').textContent = msg;
     }
 
     function restartQuiz() {
       document.getElementById('result').classList.add('hidden');
       document.getElementById('quiz').classList.remove('hidden');
+      document.getElementById('progressFill').style.width = '0%';
       initQuiz();
     }
 
