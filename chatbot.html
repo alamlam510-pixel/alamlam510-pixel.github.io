@@ -33,11 +33,10 @@
       background: linear-gradient(135deg, var(--bg-soft) 0%, #f0fff5 100%);
       color: var(--text-dark);
       line-height: 1.6;
-      min-height: 100vh;
     }
 
     /* Hero */
-    .hero {
+    header.hero {
       background: linear-gradient(135deg, var(--primary-red) 20%, var(--primary-pink) 80%);
       color: white;
       text-align: center;
@@ -62,74 +61,66 @@
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: 800;
-      margin-bottom: 12px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      margin-bottom: 16px;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.3);
       position: relative;
       z-index: 2;
     }
 
     .subtitle {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
+      max-width: 800px;
+      margin: 0 auto;
       opacity: 0.96;
       position: relative;
       z-index: 2;
     }
 
-    /* Chat Section */
+    /* Section */
     section {
-      padding: 60px 5% 80px;
-    }
-
-    .section-title {
+      padding: 80px 6%;
       text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 32px;
-      color: var(--text-dark);
     }
 
-    /* Chat Container */
-    .chat-container {
-      max-width: 750px;
+    /* Chat Window */
+    .chat-game {
+      max-width: 700px;
       margin: 0 auto;
-    }
-
-    .chat-window {
       background: var(--light);
-      border-radius: 24px;
+      border-radius: 28px;
       box-shadow: 0 16px 60px var(--glow);
+      padding: 0;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
 
     .chat-header {
       background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
       color: white;
-      padding: 20px 28px;
+      padding: 24px 28px;
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
     .chat-header img {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: white;
       padding: 4px;
     }
 
     .chat-header-info h3 {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 600;
       display: flex;
       align-items: center;
     }
 
     .chat-header-info span {
-      font-size: 0.95rem;
+      font-size: 1rem;
       opacity: 0.9;
     }
 
@@ -157,15 +148,15 @@
       flex-direction: column;
       gap: 18px;
       background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-      min-height: 400px;
-      max-height: 450px;
+      min-height: 380px;
+      max-height: 420px;
     }
 
     .message {
       max-width: 75%;
-      padding: 16px 20px;
+      padding: 18px 22px;
       border-radius: 20px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       line-height: 1.55;
       animation: fadeIn 0.3s ease;
     }
@@ -190,13 +181,13 @@
     }
 
     .message .korean {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 500;
-      margin-top: 10px;
+      margin-top: 12px;
       color: var(--teal);
       background: linear-gradient(135deg, rgba(168,230,207,0.3), rgba(42,157,143,0.15));
-      padding: 8px 14px;
-      border-radius: 12px;
+      padding: 10px 16px;
+      border-radius: 14px;
       display: inline-block;
     }
 
@@ -241,16 +232,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     .quick-btn {
-      padding: 12px 20px;
+      padding: 14px 22px;
       background: var(--mint);
       color: var(--teal);
       border: none;
       border-radius: 24px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -260,12 +251,12 @@
       background: var(--teal);
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px var(--glow-mint);
+      box-shadow: 0 8px 25px var(--glow-mint);
     }
 
     /* Input Area */
     .chat-input-area {
-      padding: 20px 24px;
+      padding: 22px 26px;
       background: var(--light);
       border-top: 1px solid #eee;
       display: flex;
@@ -289,12 +280,12 @@
     }
 
     .chat-input-area button {
-      padding: 18px 32px;
+      padding: 18px 34px;
       background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
       color: white;
       border: none;
       border-radius: 30px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -306,88 +297,85 @@
     }
 
     /* Clear Button */
-    .clear-btn {
-      padding: 12px 24px;
-      background: white;
-      color: var(--text-dark);
-      border: 2px solid #ddd;
-      border-radius: 24px;
-      font-size: 1rem;
-      font-weight: 500;
+    .btn {
+      margin-top: 24px;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.25s ease;
     }
 
-    .clear-btn:hover {
-      border-color: var(--primary-red);
-      color: var(--primary-red);
-      transform: translateY(-2px);
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--mint), var(--teal));
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(42, 157, 143, 0.35);
     }
 
     /* Footer */
     footer {
-      padding: 60px 6% 40px;
+      padding: 80px 6% 60px;
       background: linear-gradient(to top, #f0fff5, transparent);
       text-align: center;
       color: #555;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
     @media (max-width: 700px) {
-      h1 { font-size: 2.8rem; }
-      .subtitle { font-size: 1.2rem; }
+      h1 { font-size: 3rem; }
+      .subtitle { font-size: 1.4rem; }
       .message { max-width: 85%; }
-      .chat-messages { min-height: 350px; }
-      .quick-replies { gap: 8px; }
-      .quick-btn { padding: 10px 16px; font-size: 0.9rem; }
+      .chat-game { padding: 0; }
     }
   </style>
 </head>
 <body>
 <div id="nav-placeholder"></div>
 
-<div class="hero">
+<header class="hero">
   <h1>AI Korean Chatbot</h1>
   <p class="subtitle">Practice Korean conversation with AI! ♡</p>
-</div>
+</header>
 
 <section>
-  <div class="chat-container">
-    <div class="chat-window">
-      <div class="chat-header">
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=alamlam" alt="AI">
-        <div class="chat-header-info">
-          <h3><span class="status-dot"></span>Alamlam AI</h3>
-          <span>Always ready to help! ✨</span>
+  <div class="chat-game">
+    <div class="chat-header">
+      <img src="https://api.dicebear.com/7.x/notionists/svg?seed=alamlam" alt="AI">
+      <div class="chat-header-info">
+        <h3><span class="status-dot"></span>Alamlam AI</h3>
+        <span>Always ready to help! ✨</span>
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        안녕하세요! 👋 I'm your Korean practice partner. Ask me anything or use the quick replies below!
+        <div class="quick-replies">
+          <button class="quick-btn" onclick="sendQuickReply('How do you say Hello in Korean?')">Say Hello</button>
+          <button class="quick-btn" onclick="sendQuickReply('What is Thank you?')">Thank You</button>
+          <button class="quick-btn" onclick="sendQuickReply('How do you count 1 to 5?')">Count 1-5</button>
+          <button class="quick-btn" onclick="sendQuickReply('Tell me about yourself')">About Me</button>
         </div>
       </div>
-      
-      <div class="chat-messages" id="chatMessages">
-        <div class="message bot">
-          안녕하세요! 👋 I'm your Korean practice partner. Ask me anything or use the quick replies below!
-          <div class="quick-replies">
-            <button class="quick-btn" onclick="sendQuickReply('How do you say Hello in Korean?')">Say Hello</button>
-            <button class="quick-btn" onclick="sendQuickReply('What is Thank you?')">Thank You</button>
-            <button class="quick-btn" onclick="sendQuickReply('How do you count 1 to 5?')">Count 1-5</button>
-            <button class="quick-btn" onclick="sendQuickReply('Tell me about yourself')">About Me</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="typing hidden" id="typing">
-        <span></span><span></span><span></span>
-      </div>
-      
-      <div class="chat-input-area">
-        <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()">Send</button>
-      </div>
+    </div>
+    
+    <div class="typing hidden" id="typing">
+      <span></span><span></span><span></span>
+    </div>
+    
+    <div class="chat-input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">Send</button>
     </div>
   </div>
   
-  <div style="text-align: center; margin-top: 24px;">
-    <button class="clear-btn" onclick="clearHistory()">Clear Chat History</button>
-  </div>
+  <button class="btn btn-secondary" onclick="clearHistory()">Clear Chat History</button>
 </section>
 
 <footer>
