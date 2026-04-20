@@ -344,6 +344,256 @@
       .question-text { font-size: 1.6rem; }
       .quiz-game { padding: 28px; }
     }
+
+    .dashboard {
+      max-width: 1100px;
+      margin: -40px auto 60px;
+      padding: 0 6%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 40px rgba(255,154,162,0.15);
+    }
+
+    .dashboard-card h3 {
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dashboard-card h3 i {
+      color: var(--primary-pink);
+    }
+
+    .streak-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .streak-count {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .streak-flame {
+      font-size: 2.2rem;
+      animation: flicker 0.8s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { transform: scale(1); filter: brightness(1); }
+      to { transform: scale(1.1); filter: brightness(1.2); }
+    }
+
+    .streak-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-red), #ff8f00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .streak-label {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #f5f5f5;
+      color: #aaa;
+      transition: all 0.3s;
+    }
+
+    .calendar-day.active {
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+    }
+
+    .calendar-day.today {
+      border: 2px solid var(--teal);
+    }
+
+    .calendar-header {
+      font-size: 0.7rem;
+      color: #999;
+      background: none;
+      font-weight: 600;
+    }
+
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .badge {
+      text-align: center;
+      padding: 16px 8px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f8f8f8, #fff);
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .badge:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .badge.locked {
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .badge.locked .badge-icon {
+      filter: grayscale(1);
+    }
+
+    .badge-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .badge-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .badge-progress {
+      font-size: 0.65rem;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .badge.unlocked {
+      background: linear-gradient(135deg, #fff9e6, #fff3cd);
+      border: 2px solid #ffd700;
+    }
+
+    .badge.unlocked .badge-icon {
+      animation: badgePop 0.5s ease;
+    }
+
+    @keyframes badgePop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 16px;
+      background: linear-gradient(135deg, #f8f8f8, #fff);
+      border-radius: 16px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .category-progress {
+      margin-bottom: 16px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .category-name {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .category-percent {
+      color: var(--primary-pink);
+      font-weight: 600;
+    }
+
+    .category-bar {
+      height: 10px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .category-fill {
+      height: 100%;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 1s ease-out;
+    }
+
+    .category-fill.colors { background: linear-gradient(90deg, #ff6b6b, #ff8e8e); }
+    .category-fill.numbers { background: linear-gradient(90deg, #4ecdc4, #6ee7df); }
+    .category-fill.greetings { background: linear-gradient(90deg, #a8e6cf, #c8f7dc); }
+    .category-fill.animals { background: linear-gradient(90deg, #ffe66d, #fff3a0); }
+    .category-fill.food { background: linear-gradient(90deg, #c9b1ff, #e0d4ff); }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 800px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .badges-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .badges-grid { grid-template-columns: repeat(2, 1fr); }
+      .progress-stats { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -354,6 +604,97 @@
     <h1>Korean Quiz</h1>
     <p class="subtitle">Test your knowledge of colors, numbers, greetings, and more!</p>
   </header>
+
+  <!-- Progress Dashboard -->
+  <div class="dashboard">
+    <div class="dashboard-grid">
+      <!-- Streak Calendar -->
+      <div class="dashboard-card">
+        <h3><i class="fas fa-fire"></i> Learning Streak</h3>
+        <div class="streak-header">
+          <div class="streak-count">
+            <span class="streak-flame">🔥</span>
+            <div>
+              <div class="streak-number" id="streakCount">7</div>
+              <div class="streak-label">day streak</div>
+            </div>
+          </div>
+          <div class="streak-label" id="streakMessage">Keep it up!</div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+
+      <!-- Achievement Badges -->
+      <div class="dashboard-card">
+        <h3><i class="fas fa-trophy"></i> Achievements</h3>
+        <div class="badges-grid" id="badgesGrid"></div>
+      </div>
+
+      <!-- Progress Stats -->
+      <div class="dashboard-card full-width">
+        <h3><i class="fas fa-chart-line"></i> Your Progress</h3>
+        <div class="progress-stats">
+          <div class="stat-box">
+            <div class="stat-number" id="totalQuizzes">0</div>
+            <div class="stat-label">Quizzes Completed</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="totalCorrect">0</div>
+            <div class="stat-label">Correct Answers</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="accuracyRate">0%</div>
+            <div class="stat-label">Accuracy Rate</div>
+          </div>
+        </div>
+        <div class="category-progress">
+          <div class="category-header">
+            <span class="category-name">🎨 Colors</span>
+            <span class="category-percent" id="colorsPercent">0%</span>
+          </div>
+          <div class="category-bar">
+            <div class="category-fill colors" id="colorsBar"></div>
+          </div>
+        </div>
+        <div class="category-progress">
+          <div class="category-header">
+            <span class="category-name">🔢 Numbers</span>
+            <span class="category-percent" id="numbersPercent">0%</span>
+          </div>
+          <div class="category-bar">
+            <div class="category-fill numbers" id="numbersBar"></div>
+          </div>
+        </div>
+        <div class="category-progress">
+          <div class="category-header">
+            <span class="category-name">👋 Greetings</span>
+            <span class="category-percent" id="greetingsPercent">0%</span>
+          </div>
+          <div class="category-bar">
+            <div class="category-fill greetings" id="greetingsBar"></div>
+          </div>
+        </div>
+        <div class="category-progress">
+          <div class="category-header">
+            <span class="category-name">🐾 Animals</span>
+            <span class="category-percent" id="animalsPercent">0%</span>
+          </div>
+          <div class="category-bar">
+            <div class="category-fill animals" id="animalsBar"></div>
+          </div>
+        </div>
+        <div class="category-progress">
+          <div class="category-header">
+            <span class="category-name">🍚 Food</span>
+            <span class="category-percent" id="foodPercent">0%</span>
+          </div>
+          <div class="category-bar">
+            <div class="category-fill food" id="foodBar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Quiz Game -->
   <section>
@@ -374,12 +715,13 @@
       <div class="feedback" id="feedback"></div>
       <button class="btn btn-secondary" id="speakBtn" style="display:none">🔊 Hear Pronunciation</button>
       <button class="btn btn-primary" id="nextBtn" style="display:none">Next Question</button>
+      <button class="btn btn-primary" id="endQuizBtn" style="display:none">✓ End Quiz</button>
     </div>
 
     <div class="quiz-game hidden" id="result">
       <div class="result">
-        <div class="result-score" id="finalScore">8/10</div>
-        <div class="result-message" id="resultMessage">Great job! 🌟</div>
+        <div class="result-score" id="finalScore">-</div>
+        <div class="result-message" id="resultMessage">Complete the quiz to see your score!</div>
         <button class="btn btn-primary" onclick="restartQuiz()">Play Again</button>
       </div>
     </div>
@@ -514,31 +856,28 @@
 
     function showQuestion() {
       if (gameEnded) return;
-      
       answered = false;
-      const q = currentQuestions[currentIndex];
-      
-      document.getElementById('questionNum').textContent = `Question ${totalAnswered + 1}`;
+      var q = currentQuestions[currentIndex];
+      document.getElementById('questionNum').textContent = 'Question ' + (totalAnswered + 1);
       document.getElementById('scoreDisplay').textContent = score;
-      document.getElementById('targetWord').textContent = q.type === 'number' ? numberMap[q.target] : q.target;
-      
-      const optionsContainer = document.getElementById('options');
+      document.getElementById('targetWord').textContent = (q.type === 'number' ? numberMap[q.target] : q.target);
+      var optionsContainer = document.getElementById('options');
       optionsContainer.innerHTML = '';
-      
-      const options = generateOptions(q.answer);
-      options.forEach(opt => {
-        const btn = document.createElement('button');
+      var options = generateOptions(q.answer);
+      var correctAnswer = q.answer;
+      var qType = q.type;
+      for (var i = 0; i < options.length; i++) {
+        var btn = document.createElement('button');
         btn.className = 'option';
-        btn.textContent = opt;
-        btn.onclick = () => selectAnswer(opt, q.answer);
+        btn.textContent = options[i];
+        (function(sel, corr, typ) { btn.onclick = function() { selectAnswer(sel, corr, typ); }; })(options[i], correctAnswer, qType);
         optionsContainer.appendChild(btn);
-      });
-
+      }
       document.getElementById('feedback').className = 'feedback';
       document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('endQuizBtn').style.display = 'none';
       document.getElementById('speakBtn').style.display = 'none';
-      
-      document.getElementById('speakHintBtn').onclick = () => speakKorean(q.answer);
+      document.getElementById('speakHintBtn').onclick = function() { speakKorean(q.answer); };
       startTimer();
     }
 
@@ -559,7 +898,7 @@
       }, 1000);
     }
 
-    function selectAnswer(selected, correct) {
+    function selectAnswer(selected, correct, type) {
       if (answered || gameEnded) return;
       answered = true;
       clearInterval(timer);
@@ -573,7 +912,8 @@
       });
 
       const feedback = document.getElementById('feedback');
-      if (selected === correct) {
+      const isCorrect = selected === correct;
+      if (isCorrect) {
         score++;
         feedback.textContent = '✓ Correct! Well done!';
         feedback.className = 'feedback show correct';
@@ -581,20 +921,37 @@
         feedback.textContent = `✗ The answer is: ${correct}`;
         feedback.className = 'feedback show wrong';
       }
+      
+      console.log('Calling recordAnswer:', type, isCorrect);
+      recordAnswer(type, isCorrect);
 
       const progressPercent = Math.round((totalAnswered / 20) * 100);
       document.getElementById('progressFill').style.width = progressPercent + '%';
       document.getElementById('scoreDisplay').textContent = score;
       document.getElementById('speakBtn').style.display = 'block';
       document.getElementById('speakBtn').onclick = () => speakKorean(correct);
-      document.getElementById('nextBtn').style.display = 'block';
+      
+      // Check if all questions have been answered
+      if (totalAnswered >= currentQuestions.length) {
+        // Auto-end the quiz after all questions answered
+        document.getElementById('nextBtn').style.display = 'none';
+        setTimeout(() => {
+          endGame();
+        }, 1500);
+      } else {
+        document.getElementById('nextBtn').style.display = 'block';
+      }
     }
 
     document.getElementById('nextBtn').onclick = () => {
-      currentIndex = (currentIndex + 1) % currentQuestions.length;
+      currentIndex++;
       if (!gameEnded) {
         showQuestion();
       }
+    };
+
+    document.getElementById('endQuizBtn').onclick = () => {
+      endGame();
     };
 
     function endGame() {
@@ -607,6 +964,10 @@
       document.getElementById('quiz').classList.add('hidden');
       document.getElementById('result').classList.remove('hidden');
       document.getElementById('finalScore').textContent = `${score}/${totalAnswered}`;
+      
+      if (typeof recordQuizComplete === 'function') {
+        recordQuizComplete(score);
+      }
       
       const percentage = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
       let msg = '';
@@ -621,10 +982,216 @@
       document.getElementById('result').classList.add('hidden');
       document.getElementById('quiz').classList.remove('hidden');
       document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('scoreDisplay').textContent = '0';
+      document.getElementById('questionNum').textContent = 'Question 1';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('endQuizBtn').style.display = 'none';
+      document.getElementById('speakBtn').style.display = 'none';
       initQuiz();
     }
 
-    initQuiz();
+    const STORAGE_KEY = 'koreanQuiz_stats';
+    let stats = loadStats();
+
+    function loadStats() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            streak: parsed.streak || 0,
+            lastActive: parsed.lastActive,
+            totalQuizzes: parsed.totalQuizzes || 0,
+            totalCorrect: parsed.totalCorrect || 0,
+            totalAnswers: parsed.totalAnswers || 0,
+            categoryCorrect: parsed.categoryCorrect || { colors: 0, numbers: 0, greetings: 0, animals: 0, food: 0 },
+            categoryTotal: parsed.categoryTotal || { colors: 0, numbers: 0, greetings: 0, animals: 0, food: 0 },
+            badges: parsed.badges || []
+          };
+        }
+      } catch (e) {
+        console.error('Failed to load stats:', e);
+      }
+      return {
+        streak: 7,
+        lastActive: null,
+        totalQuizzes: 0,
+        totalCorrect: 0,
+        totalAnswers: 0,
+        categoryCorrect: { colors: 0, numbers: 0, greetings: 0, animals: 0, food: 0 },
+        categoryTotal: { colors: 0, numbers: 0, greetings: 0, animals: 0, food: 0 },
+        badges: []
+      };
+    }
+
+    function saveStats() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+      } catch (e) {
+        console.error('Failed to save stats:', e);
+      }
+    }
+
+    function initDashboard() {
+      renderCalendar();
+      renderBadges();
+      updateProgress();
+      animateProgressBars();
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      const headers = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+      const today = new Date();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const activeDays = generateActiveDays();
+
+      let html = headers.map(h => `<div class="calendar-header">${h}</div>`).join('');
+      
+      for (let i = 0; i < firstDay; i++) {
+        html += '<div class="calendar-day"></div>';
+      }
+      
+      for (let d = 1; d <= daysInMonth; d++) {
+        const isActive = activeDays.includes(d);
+        const isToday = d === today.getDate();
+        const classes = `calendar-day${isActive ? ' active' : ''}${isToday ? ' today' : ''}`;
+        html += `<div class="${classes}">${d}</div>`;
+      }
+      
+      grid.innerHTML = html;
+    }
+
+    function generateActiveDays() {
+      const days = [];
+      const streak = Math.min(stats.streak, 28);
+      for (let i = 0; i < streak; i++) {
+        days.push(Math.max(1, new Date().getDate() - streak + i + 1));
+      }
+      return days;
+    }
+
+    function renderBadges() {
+      const badges = [
+        { id: 'first', name: 'First Steps', icon: '🎯', req: 1, type: 'quizzes' },
+        { id: 'streak7', name: 'Week Warrior', icon: '🔥', req: 7, type: 'streak' },
+        { id: 'perfect', name: 'Perfect Score', icon: '⭐', req: 10, type: 'score' },
+        { id: 'colors', name: 'Color Master', icon: '🎨', req: 10, type: 'category', cat: 'colors' },
+        { id: 'numbers', name: 'Number Pro', icon: '🔢', req: 10, type: 'category', cat: 'numbers' },
+        { id: 'greetings', name: 'Greeting Pro', icon: '👋', req: 10, type: 'category', cat: 'greetings' },
+        { id: 'streak30', name: 'Month Master', icon: '🏆', req: 30, type: 'streak' },
+        { id: 'hundred', name: 'Century', icon: '💯', req: 100, type: 'correct' }
+      ];
+
+      const grid = document.getElementById('badgesGrid');
+      let html = '';
+
+      badges.forEach(badge => {
+        const unlocked = checkBadgeUnlocked(badge);
+        const progress = getBadgeProgress(badge);
+        const classes = `badge${unlocked ? ' unlocked' : ''}`;
+        
+        html += `
+          <div class="${classes}" title="${badge.name}">
+            <span class="badge-icon">${badge.icon}</span>
+            <div class="badge-name">${badge.name}</div>
+            <div class="badge-progress">${progress}</div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function checkBadgeUnlocked(badge) {
+      if (badge.type === 'quizzes') return stats.totalQuizzes >= badge.req;
+      if (badge.type === 'streak') return stats.streak >= badge.req;
+      if (badge.type === 'score') return badge.req === 10 && stats.categoryCorrect[badge.cat || 0] >= badge.req;
+      if (badge.type === 'category') return stats.categoryCorrect[badge.cat] >= badge.req;
+      if (badge.type === 'correct') return stats.totalCorrect >= badge.req;
+      return false;
+    }
+
+    function getBadgeProgress(badge) {
+      if (badge.type === 'quizzes') return `${stats.totalQuizzes}/${badge.req}`;
+      if (badge.type === 'streak') return `${stats.streak}/${badge.req}`;
+      if (badge.type === 'category') return `${stats.categoryCorrect[badge.cat] || 0}/${badge.req}`;
+      if (badge.type === 'correct') return `${stats.totalCorrect}/${badge.req}`;
+      return '0/10';
+    }
+
+    function updateProgress() {
+      document.getElementById('streakCount').textContent = stats.streak;
+      
+      const streakMsg = stats.streak >= 30 ? 'Amazing!' : 
+                     stats.streak >= 14 ? 'Incredible!' : 
+                     stats.streak >= 7 ? 'Keep it up!' : 
+                     'Start building!';
+      document.getElementById('streakMessage').textContent = streakMsg;
+
+      document.getElementById('totalQuizzes').textContent = stats.totalQuizzes;
+      document.getElementById('totalCorrect').textContent = stats.totalCorrect;
+      
+      const accuracy = stats.totalAnswers > 0 
+        ? Math.round((stats.totalCorrect / stats.totalAnswers) * 100) 
+        : 0;
+      document.getElementById('accuracyRate').textContent = accuracy + '%';
+
+      updateCategoryProgress('colors', 10);
+      updateCategoryProgress('numbers', 10);
+      updateCategoryProgress('greetings', 6);
+      updateCategoryProgress('animals', 4);
+      updateCategoryProgress('food', 4);
+    }
+
+    function updateCategoryProgress(category, total) {
+      const correct = stats.categoryCorrect[category] || 0;
+      const percent = Math.min(100, Math.round((correct / total) * 100));
+      document.getElementById(category + 'Percent').textContent = percent + '%';
+    }
+
+    function animateProgressBars() {
+      setTimeout(() => {
+        ['colors', 'numbers', 'greetings', 'animals', 'food'].forEach(cat => {
+          const correct = stats.categoryCorrect[cat] || 0;
+          const total = { colors: 10, numbers: 10, greetings: 6, animals: 4, food: 4 }[cat];
+          const percent = Math.min(100, Math.round((correct / total) * 100));
+          document.getElementById(cat + 'Bar').style.width = percent + '%';
+        });
+      }, 300);
+    }
+
+    function recordAnswer(type, isCorrect) {
+      var typeMap = { color: 'colors', number: 'numbers', greeting: 'greetings', animal: 'animals', food: 'food' };
+      var catType = typeMap[type] || type;
+      if (!stats.categoryTotal[catType]) { stats.categoryTotal[catType] = 0; }
+      if (!stats.categoryCorrect[catType]) { stats.categoryCorrect[catType] = 0; }
+      stats.categoryTotal[catType]++;
+      if (isCorrect) { stats.categoryCorrect[catType]++; }
+      stats.totalAnswers++;
+      if (isCorrect) { stats.totalCorrect++; }
+      saveStats();
+      updateProgress();
+      animateProgressBars();
+      renderBadges();
+    }
+
+    function recordQuizComplete(score) {
+      stats.totalQuizzes++;
+      if (score >= 10) {
+        if (!stats.badges.includes('perfect')) {
+          stats.badges.push('perfect');
+        }
+      }
+      saveStats();
+      updateProgress();
+      renderBadges();
+    }
+
+    initDashboard();
   </script>
   <script src="nav.js"></script>
 </body>
