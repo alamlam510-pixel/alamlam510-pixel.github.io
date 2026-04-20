@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Korean Chatbot ♡</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="nav.js"></script>
+
+  <style>
+    :root {
+      --bg-soft:      #fffaf5;
+      --primary-pink: #ff9aa2;
+      --primary-red:  #ff6b6b;
+      --mint:         #a8e6cf;
+      --teal:         #2a9d8f;
+      --light:        #ffffff;
+      --text-dark:   #2d3436;
+      --gray-light:  #f5f5f5;
+      --gray:        #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Sans KR', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--bg-soft) 0%, #f0fff5 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary-red) 20%, var(--primary-pink) 80%);
+      color: white;
+      text-align: center;
+      padding: 140px 6% 60px;
+      margin-top: 80px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+
+    /* Chat Container */
+    .chat-container {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .chat-window {
+      background: var(--light);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-header img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      padding: 4px;
+    }
+
+    .chat-header-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .chat-header-info span {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Messages */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--gray-light);
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 14px 18px;
+      border-radius: 20px;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.bot {
+      background: var(--light);
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .message.user {
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+
+    .message .korean {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-top: 8px;
+      color: var(--teal);
+    }
+
+    .message.user .korean {
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* Typing Animation */
+    .typing {
+      display: flex;
+      gap: 5px;
+      padding: 16px 20px;
+      background: var(--light);
+      border-radius: 20px;
+      width: fit-content;
+      border-bottom-left-radius: 6px;
+    }
+
+    .typing span {
+      width: 10px;
+      height: 10px;
+      background: var(--gray);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out;
+    }
+
+    .typing span:nth-child(1) { animation-delay: 0s; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+    }
+
+    .typing.hidden { display: none; }
+
+    /* Quick Replies */
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .quick-btn {
+      padding: 10px 18px;
+      background: var(--mint);
+      color: var(--teal);
+      border: none;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .quick-btn:hover {
+      background: var(--teal);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Input Area */
+    .chat-input-area {
+      padding: 20px;
+      background: var(--light);
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 16px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    .chat-input-area input:focus {
+      border-color: var(--primary-pink);
+    }
+
+    .chat-input-area button {
+      padding: 16px 28px;
+      background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .chat-input-area button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,107,107,0.3);
+    }
+
+    /* History Toggle */
+    .history-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .history-toggle h2 {
+      font-size: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    .clear-btn {
+      padding: 10px 20px;
+      background: white;
+      color: var(--gray);
+      border: 2px solid #ddd;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .clear-btn:hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.5rem; }
+      .chat-window { height: 500px; }
+      .message { max-width: 85%; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<header>
+  <h1>AI Korean Chatbot</h1>
+  <p class="subtitle">Practice Korean conversation with AI! ♡</p>
+</header>
+
+<div class="chat-container">
+  <div class="history-toggle">
+    <h2>Chat History</h2>
+    <button class="clear-btn" onclick="clearHistory()">Clear Chat</button>
+  </div>
+  
+  <div class="chat-window">
+    <div class="chat-header">
+      <img src="https://api.dicebear.com/7.x/notionists/svg?seed=alamlam" alt="AI">
+      <div class="chat-header-info">
+        <h3><span class="status-dot"></span>Alamlam AI</h3>
+        <span>Always ready to help! ✨</span>
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        안녕하세요! 👋 I'm your Korean practice partner. Ask me anything or use the quick replies below!
+        <div class="quick-replies">
+          <button class="quick-btn" onclick="sendQuickReply('How do you say Hello in Korean?')">Say Hello</button>
+          <button class="quick-btn" onclick="sendQuickReply('What is Thank you?')">Thank You</button>
+          <button class="quick-btn" onclick="sendQuickReply('How do you count 1 to 5?')">Count 1-5</button>
+          <button class="quick-btn" onclick="sendQuickReply('Tell me about yourself')">About Me</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="typing hidden" id="typing">
+      <span></span><span></span><span></span>
+    </div>
+    
+    <div class="chat-input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const quickReplies = {
+    'How do you say Hello in Korean?': {
+      text: 'Hello in Korean is "안녕하세요" (annyeonghaseyo)! It means "Are you at peace?" and is a polite greeting.',
+      korean: '안녕하세요 (annyeonghaseyo)'
+    },
+    'What is Thank you?': {
+      text: 'Thank you in Korean is "감사합니다" (gamsahamnida). For casual thanks, you can say "고마워" (gomawo).',
+      korean: '감사합니다 (gamsahamnida)'
+    },
+    'How do you count 1 to 5?': {
+      text: 'Korean numbers 1-5: one is 하나 (hana), two is 둘 (dul), three is 셋 (set), four is 넷 (net), five is 다섯 (daseot).',
+      korean: '하나, 둘, 셋, 넷, 다섯'
+    },
+    'Tell me about yourself': {
+      text: '저는 Alamlam AI입니다! Korean Connect网站的聊天机器人。我可以帮助你学习韩语词汇、会话和语法。 Let\'s practice together!',
+      korean: '안녕하세요! 저는 Alamlam AI입니다.'
+    }
+  };
+
+  const botResponses = {
+    'hi': { text: '안녕하세요! (Hello!) Great to meet you! What would you like to practice today?', korean: '안녕하세요!' },
+    'hello': { text: '안녕하세요! (Hello!) Great to meet you! What would you like to practice today?', korean: '안녕하세요!' },
+    'bye': { text: '안녕히 가세요! (Goodbye!) Have a great day and keep practicing! ♡', korean: '안녕히 가세요!' },
+    'thank you': { text: '천만에요! (You\'re welcome!) Keep up the good work with your Korean!', korean: '천만에요!' },
+    'good': { text: '잘했어요! (Well done!) That\'s great progress! What else would you like to learn?', korean: '잘했어요!' },
+    'name': { text: '제 이름은 한국어 연결입니다! (My name is Korean Connect!) I\'m here to help you learn Korean.', korean: '한국어 연결' },
+    'help': { text: '물어볼게 있으면 편하게 물어보세요! I can help with Korean vocabulary, phrases, grammar, or conversation practice.', korean: '도움이 필요하면 말씀하세요!' },
+    'yes': { text: '네! (Yes!) That\'s correct! Keep it up!', korean: '네!' },
+    'no': { text: '아니요 (No)! That\'s okay, let\'s try again!', korean: '아니요!' }
+  };
+
+  const defaultResponse = {
+    text: 'Interesting question! Keep practicing Korean every day. Here are some helpful phrases: 안녕하세요 (hello), 감사합니다 (thank you), 네 (yes), 아니요 (no). What would you like to learn next?',
+    korean: '계속 연습하세요!'
+  };
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') sendMessage();
+  }
+
+  function addMessage(text, isUser, korean = null) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    msgDiv.innerHTML = text;
+    if (korean && !isUser) {
+      msgDiv.innerHTML += `<div class="korean">${korean}</div>`;
+    }
+    messagesDiv.appendChild(msgDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    saveHistory();
+  }
+
+  function showTyping() {
+    const typingDiv = document.getElementById('typing');
+    typingDiv.classList.remove('hidden');
+    const messagesDiv = document.getElementById('chatMessages');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  function hideTyping() {
+    document.getElementById('typing').classList.add('hidden');
+  }
+
+  function sendQuickReply(text) {
+    addMessage(text, true);
+    showTyping();
+    
+    setTimeout(() => {
+      hideTyping();
+      const response = quickReplies[text] || defaultResponse;
+      addMessage(response.text, false, response.korean);
+    }, 1000 + Math.random() * 1000);
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text) return;
+    
+    input.value = '';
+    addMessage(text, true);
+    showTyping();
+    
+    setTimeout(() => {
+      hideTyping();
+      let response = defaultResponse;
+      const lowerText = text.toLowerCase();
+      
+      for (const key in botResponses) {
+        if (lowerText.includes(key)) {
+          response = botResponses[key];
+          break;
+        }
+      }
+      
+      addMessage(response.text, false, response.korean);
+    }, 1000 + Math.random() * 1000);
+  }
+
+  function clearHistory() {
+    const messagesDiv = document.getElementById('chatMessages');
+    messagesDiv.innerHTML = '';
+    addMessage('안녕하세요! 👋 I\'m your Korean practice partner. Ask me anything or use the quick replies below!', false);
+    localStorage.removeItem('chatHistory');
+  }
+
+  function saveHistory() {
+    const messagesDiv = document.getElementById('chatMessages');
+    localStorage.setItem('chatHistory', messagesDiv.innerHTML);
+  }
+
+  function loadHistory() {
+    const saved = localStorage.getItem('chatHistory');
+    if (saved) {
+      document.getElementById('chatMessages').innerHTML = saved;
+    }
+  }
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
