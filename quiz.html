@@ -713,7 +713,6 @@
       </div>
       <div class="options" id="options"></div>
       <div class="feedback" id="feedback"></div>
-      <button class="btn btn-secondary" id="speakBtn" style="display:none">🔊 Hear Pronunciation</button>
       <button class="btn btn-primary" id="nextBtn" style="display:none">Next Question</button>
       <button class="btn btn-primary" id="endQuizBtn" style="display:none">✓ End Quiz</button>
     </div>
@@ -876,7 +875,6 @@
       document.getElementById('feedback').className = 'feedback';
       document.getElementById('nextBtn').style.display = 'none';
       document.getElementById('endQuizBtn').style.display = 'none';
-      document.getElementById('speakBtn').style.display = 'none';
       document.getElementById('speakHintBtn').onclick = function() { speakKorean(q.answer); };
       startTimer();
     }
@@ -928,8 +926,6 @@
       const progressPercent = Math.round((totalAnswered / 20) * 100);
       document.getElementById('progressFill').style.width = progressPercent + '%';
       document.getElementById('scoreDisplay').textContent = score;
-      document.getElementById('speakBtn').style.display = 'block';
-      document.getElementById('speakBtn').onclick = () => speakKorean(correct);
       
       // Check if all questions have been answered
       if (totalAnswered >= currentQuestions.length) {
@@ -986,7 +982,9 @@
       document.getElementById('questionNum').textContent = 'Question 1';
       document.getElementById('nextBtn').style.display = 'none';
       document.getElementById('endQuizBtn').style.display = 'none';
-      document.getElementById('speakBtn').style.display = 'none';
+      score = 0;
+      totalAnswered = 0;
+      document.getElementById('finalScore').textContent = ``;
       initQuiz();
     }
 
