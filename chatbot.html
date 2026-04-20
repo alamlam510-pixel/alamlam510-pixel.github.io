@@ -7,19 +7,19 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
   <script src="nav.js"></script>
 
   <style>
-    :root {
-      --bg-soft:      #fffaf5;
-      --primary-pink:  #ff9aa2;
-      --primary-red:   #ff6b6b;
-      --mint:          #a8e6cf;
-      --teal:          #2a9d8f;
-      --light:         #ffffff;
-      --text-dark:     #2d3436;
-      --glow:          rgba(255, 154, 162, 0.25);
-      --glow-mint:     rgba(168, 230, 207, 0.3);
+    /* Chat Window */
+    .chat-game {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--light);
+      border-radius: 28px;
+      box-shadow: 0 16px 60px var(--glow);
+      padding: 0;
+      overflow: hidden;
     }
 
     * {
@@ -463,10 +463,40 @@
     'no': { text: '아니요 (No)! That\'s okay, let\'s try again!', korean: '아니요!' }
   };
 
+  const MISTRAL_API_KEY = 'NArMNCwrdWllNiwe6VldxZFjv9WUSIzF';
+
   const defaultResponse = {
     text: 'Interesting question! Keep practicing Korean every day. Here are some helpful phrases: 안녕하세요 (hello), 감사합니다 (thank you), 네 (yes), 아니요 (no). What would you like to learn next?',
     korean: '계속 연습하세요!'
   };
+
+  async function callMistralAI(userMessage) {
+    try {
+      const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${MISTRAL_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'mistral-small-latest',
+          messages: [{
+            role: 'user',
+            content: `You are a helpful Korean language learning assistant. Respond to this in English and also provide the Korean translation: ${userMessage}`
+          }]
+        })
+      });
+      
+      const data = await response.json();
+      if (data.choices && data.choices[0]) {
+        return data.choices[0].message.content;
+      }
+      return null;
+    } catch (error) {
+      console.error('Mistral API error:', error);
+      return null;
+    }
+  }
 
   function handleKeyPress(e) {
     if (e.key === 'Enter') sendMessage();
@@ -507,7 +537,7 @@
     }, 1000 + Math.random() * 1000);
   }
 
-  function sendMessage() {
+  async function sendMessage() {
     const input = document.getElementById('userInput');
     const text = input.value.trim();
     if (!text) return;
@@ -516,20 +546,35 @@
     addMessage(text, true);
     showTyping();
     
-    setTimeout(() => {
-      hideTyping();
-      let response = defaultResponse;
-      const lowerText = text.toLowerCase();
-      
-      for (const key in botResponses) {
-        if (lowerText.includes(key)) {
-          response = botResponses[key];
-          break;
-        }
+    const lowerText = text.toLowerCase();
+    let knownResponse = null;
+    
+    for (const key in botResponses) {
+      if (lowerText.includes(key)) {
+        knownResponse = botResponses[key];
+        break;
       }
-      
-      addMessage(response.text, false, response.korean);
-    }, 1000 + Math.random() * 1000);
+    }
+    
+    if (knownResponse) {
+      setTimeout(() => {
+        hideTyping();
+        addMessage(knownResponse.text, false, knownResponse.korean);
+      }, 500);
+      return;
+    }
+    
+    const aiResponse = await callMistralAI(text);
+    hideTyping();
+    
+    if (aiResponse) {
+      const lines = aiResponse.split('\n');
+      const english = lines[0].trim();
+      const koreanMatch = lines.find(l => l.includes('한국어') || l.includes('Korean:'));
+      addMessage(english, false, koreanMatch ? koreanMatch.replace(/.*(Korean:|한국어:)/i, '').trim() : '계속 연습하세요!');
+    } else {
+      addMessage(defaultResponse.text, false, defaultResponse.korean);
+    }
   }
 
   function clearHistory() {
